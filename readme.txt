@@ -8,6 +8,13 @@
 ・ログインページよりログインが可能
 ・ログイン後、自分の作成した記事の編集が可能
 
+■フォルダ構成
+・htdocs (controller)
+・include
+ - conf
+ - model
+ - view
+
 ■ファイル内容(1/20現在)
 
 ・index.php
