@@ -184,15 +184,7 @@ class Tour_List_Access{
       $error = $pdo->errorInfo();
       exit($error[2]);
     }
-/*
-        $prepare = $dbh->prepare('SELECT * FROM yoyaku_table WHERE user_id = :user_id and syonin_flg = 0 ');
 
-    $prepare->bindValue(':user_id', $user_id, PDO::PARAM_INT); 
-
-    $prepare->execute();
-
-    $result = $prepare->fetchAll();
-*/
     // 一覧表示用SQL作成
     $stmt = $pdo->prepare("SELECT * FROM tour_list where category = :category");
 
@@ -207,6 +199,71 @@ class Tour_List_Access{
 
   }
 
+
+
+  /**
+   * 自分の作成したツアー一覧を返す
+   *
+   * @param ユーザーID
+   *
+   * @return ツアー情報の一覧
+   */
+  
+    public function my_list_show($user_id){
+
+    try {
+      // PDOクラスをインスタンス化
+      $pdo = new PDO(DB_HOST, DB_USER, DB_PASSWD); 
+    } catch (PDOException $e) {
+      exit('データベースに接続できませんでした。'.$e->getMessage());
+    }
+
+    // 文字コードをセット
+    $stmt = $pdo->query('SET NAMES utf8');
+    if (!$stmt) {
+      $error = $pdo->errorInfo();
+      exit($error[2]);
+    }
+
+    // 一覧表示用SQL作成
+    $stmt = $pdo->prepare("SELECT * FROM tour_list where author_id = :user_id");
+
+    $stmt->bindValue(':user_id',(int)$user_id,PDO::PARAM_INT);
+    
+    $stmt->execute();
+
+    $result = $stmt->fetchAll();
+    
+    //結果セットを返す 
+    return $result;
+
+  }
+
+
+  /**
+   * 編集したツアーの内容を更新
+   *
+   * @param 記事ID
+   *
+   * @return ツアー情報の一覧
+   */
+  
+    public function tour_list_update($article_id,$title,$description){
+
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    //予約番号の承認フラグを1にする
+    $prepare = $dbh->prepare('update tour_list set title = :title, description = :description WHERE id = :article_id');
+
+    $prepare->bindValue(':title', $title, PDO::PARAM_STR); 
+    $prepare->bindValue(':description', $description, PDO::PARAM_STR); 
+    $prepare->bindValue(':article_id', (int)$article_id, PDO::PARAM_INT);
+
+    $result = $prepare->execute();
+
+    return $result;
+
+  }
 
 
 }

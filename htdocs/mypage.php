@@ -9,10 +9,29 @@ require_once '../include/model/function.php';
 // セッション開始
 session_start();
 
+$user_id = $_SESSION["user_id"];
+
+$user_name = $_SESSION["user_name"];
+
+
 $tour = new Tour_List_Access();
 
+
+if(isset($_POST["article_id"])){
+
+
+$article_id = $_POST["article_id"];
+$title = $_POST["title"];
+$description = $_POST["description"];
+
+// ツアー記事データの更新
+$status = $tour -> tour_list_update($article_id,$title,$description);
+
+}
+
+
 // ツアー記事データの取得
-$status = $tour -> tour_list_show();
+$status = $tour -> my_list_show($user_id);
 
 //データ表示
 //echo(count($status));
@@ -35,8 +54,12 @@ if($status==false){
                       '</div>'.
                     '</div>'.
 	              '</div>'.
-    		    '<h2>'. $result[title].'</h2>'.
-                '<p>'.$result[description] .'</p>'.
+            '<form method="post" action="./mypage.php">'.
+    		    '<h2><input type="text" name="title" value="'.$result[title].'"></h2>'.
+            '<p><textarea name="description">'.$result[description] .'</textarea></p>'.
+            '<input type="hidden" name="article_id" value="'.$result[id].'">'.
+            '<input type="submit" value="更新">'.
+            '</form>'.
     		  '</div>';  
   		  
     $view = $view . $view_t;
@@ -45,51 +68,6 @@ if($status==false){
   //exit;
 }
 
-// user_mstのインスタンス生成
-
-$user_mst_access = new User_Mst_Access();
-
-/*画面から入力したIDとパスワード*/
-$user_name = $_POST["user_name"];
-$password = $_POST["password"];
-
-// エラーメッセージの初期化
-$errorMessage = "";
-
-// ログインボタンが押された場合
-if (isset($_POST["user_name"])) {
-  // １．ユーザIDの入力チェック
-  if (empty($_POST["user_name"])) {
-    $errorMessage = "ユーザIDが未入力です。";
-  } else if (empty($_POST["password"])) {
-    $errorMessage = "パスワードが未入力です。";
-  } 
-
-  // ２．ユーザIDとパスワードが入力されていたら認証する
-  if (!empty($_POST["user_name"]) && !empty($_POST["password"])) {
-    // mysqlへの接続
-    try {
-        $rtn = $user_mst_access->login($user_name,$password);
-
-        if(isset($rtn)){
-          $_SESSION["user_id"] = $rtn['user_id'];
-          $_SESSION["user_name"] = $user_name;
-          $_SESSION["user_kbn"] = $rtn['user_kbn'];
-          var_dump($rtn['user_kbn']);
-          header("Location: mypage.php");
-          exit;
-        }else{
-          // throw new Exception('DBアクセスエラー');
-        }
-    } catch (Exception $e) {
-        print "エラー!: " . $e->getMessage() . "<br/>";
-        die();
-    }
-  }
-} 
-
-
-
 
  // viewファイル読み込み
-include_once '../include/view/index.php';
+include_once '../include/view/mypage.php';
