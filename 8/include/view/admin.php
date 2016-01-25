@@ -46,116 +46,30 @@
           <div class="container">
             <div class="row">
               <div class="col-md-8 col-md-offset-2">
-                <h1>TOUR PLAN</h1>
+                <h1>ユーザー</h1>
                 <a href="#portfolio" class="down-arrow-btn"><i class="fa fa-chevron-down"></i></a>
               </div>
             </div>
           </div>
         </section>
-
-
-
-    <!-- Navigation -->
-
-
-    <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
-
-            <!-- Blog Entries Column -->
-            <div class="col-md-8">
-
-                <h1 class="page-header">
-                    <?php echo $title ?>
-                    <small>Secondary Text</small>
-                </h1>
-
-                <!-- First Blog Post -->
-                <h2>
-                    <a href="#">Blog Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-                <hr>
-                <img class="img-responsive" src="../include/view/img/0<?php echo $id ?>.jpg" alt="">
-                <hr>
-                <p><?php echo $content ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-                <hr>
-
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="previous">
-                        <a href="#">&larr; Older</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">Newer &rarr;</a>
-                    </li>
+        <section>
+          <div>
+            <p class="logout"><a href="./logout.php">ログアウト</a></p>
+            <?php echo $view ?> 
+          </div>
+        </section>
+        <section class="portfolio text-center section-padding" id="portfolio">
+          <div class="container">
+            <div class="row">
+              <div id="portfolioSlider">
+                <ul class="slides">
+                  <li>
+                  </li>
                 </ul>
-
+              </div>
             </div>
-
-            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
-
-                <!-- Blog Search Well -->
-                <div class="well">
-                    <h4>Blog Search</h4>
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                        </span>
-                    </div>
-                    <!-- /.input-group -->
-                </div>
-
-                <!-- Blog Categories Well -->
-                <div class="well">
-                    <h4><a href="./logout.php">ログアウト</a></h4>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Category Name</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.col-lg-6 -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-
-                <!-- Side Widget Well -->
-                <div class="well">
-                    <h4>Side Widget Well</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-
-
-
-
-
-
-
-
-
-
-
-
+          </div>
+        </section>
 
         <footer>
           <div class="container">
@@ -177,8 +91,7 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../include/view/js/waypoints.min.js"></script>
         <script src="../include/view/js/bootstrap.min.js"></script>
-        <script src="../include/view/js/scripts.js"></script>
-        <script src="../include/view/js/jquery.flexslider.js"></script>
-        <script src="../include/view/js/modernizr.js"></script>
+
+
       </body>
     </html>

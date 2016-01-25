@@ -52,6 +52,11 @@
             </div>
           </div>
         </section>
+        <section>
+          <div>
+            <p class="logout"><a href="./logout.php">ログアウト</a></p>
+          </div>
+        </section>
         <section class="portfolio text-center section-padding" id="portfolio">
           <div class="container">
             <div class="row">

@@ -1,38 +1,6 @@
 <?php
 
-/*
-class connectModel{
-  protected $_dbConnections=array();
-  protected $_connectName;
-    public function connect($name,$connection_strings){
-      try{
-        $cnt = new PDO{
-          $connection_strings['string'],
-          $connection_strings['user'],
-          $connection_strings['password']
-        );
-        }catch(PDOException $e){
-          exit("データベースの接続に失敗しました。：{$e->getMessage()}");
-        }
-      $cnt -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      $this -> _dbConnections[$name] = $cnt;
-
-      $this -> _connectName = $name;
-    }
-
-  public function getConnection($name = null){
-    //データベースの接続名が取得できない場合の処理
-    if(is_null($name)){
-      // _dbConnectionsプロパディの先頭要素を返す
-      return current($this->_dbConnections);
-
-    }
-    //_dbConnectionsプロパディに格納されているPDOオブジェクトを返す
-    return $this -> _dbConnections[$name];
-  }
-}
-*/
 class User_Mst_Access{
 
   //設定
@@ -58,10 +26,13 @@ class User_Mst_Access{
   }
 
   //パスワードのハッシュ化
+  //private function hash($password){
+  //  return md5($password . self::SALT);
+  //}
+  //パスワードのハッシュ化
   private function hash($password){
     return md5($password . self::SALT);
   }
-
   /**
    * 指定したユーザでログインします。
    *  
@@ -106,6 +77,81 @@ class User_Mst_Access{
       } 
     return false;
   }
+
+  /**
+   * 登録ユーザーの一覧情報を取得する
+   *
+   *
+   * @return 登録ユーザー一覧
+   */
+  public function user_list_show(){
+    // DB接続情報
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    // 一覧表示用SQL作成
+    $stmt = $dbh->prepare("SELECT * FROM user_mst");
+  
+    $stmt->execute();
+
+    $result = $stmt->fetchAll();
+
+    $dbh = null;
+
+    //insertを実行
+    return $result;
+
+  }
+
+
+  /**
+   * 登録ユーザーの一覧情報を取得する
+   *
+   *
+   * @return 登録ユーザー一覧
+   */
+  public function user_delete($user_id){
+
+    // DB接続情報
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    // 一覧表示用SQL作成
+    $stmt = $dbh->prepare("delete from user_mst where id = :user_id");
+    
+    $stmt->bindValue(':user_id', (int)$user_id, PDO::PARAM_INT);
+
+    $result = $stmt->execute();
+
+    $dbh = null;
+
+    //insertを実行
+    return $result;
+
+  }
+
+  /**
+   * 登録ユーザーの一覧情報を取得する
+   *
+   *
+   * @return 登録ユーザー一覧
+   */
+  public function user_update($user_id,$user_name){
+
+    // DB接続情報
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    //予約番号の承認フラグを1にする
+    $prepare = $dbh->prepare('update user_mst set user_name = :user_name WHERE id = :user_id');
+
+    $prepare->bindValue(':user_id', (int)$user_id, PDO::PARAM_INT); 
+    $prepare->bindValue(':user_name', $user_name, PDO::PARAM_STR); 
+    
+    $result = $prepare->execute();
+   
+    //insertを実行
+    return $result;
+
+  }
+
 }
 
 /**
@@ -160,6 +206,7 @@ class Tour_List_Access{
     return $result;
 
   }
+
 
   /**
    * カテゴリーに対応したツアー一覧を返す
@@ -260,10 +307,40 @@ class Tour_List_Access{
     $prepare->bindValue(':article_id', (int)$article_id, PDO::PARAM_INT);
 
     $result = $prepare->execute();
-
+    var_dump($result);
     return $result;
 
   }
+
+
+  /**
+   * 編集したツアーの内容を更新
+   *
+   * @param 記事ID
+   *
+   * @return ツアー情報の一覧
+   */
+  
+    public function tour_show($article_id){
+
+    try {
+      $pdo = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+    } catch (PDOException $e) {
+      exit('データベースに接続できませんでした。'.$e->getMessage());
+    }
+    // 記事詳細表示用SQL作成
+    $stmt = $pdo->prepare("SELECT * FROM tour_list where id = :article_id");
+
+    $stmt->bindValue(':article_id',(int)$article_id,PDO::PARAM_INT);
+    
+    $stmt->execute();
+
+    $result = $stmt->fetchAll();
+
+    return $result; 
+
+  }
+
 
 
 }

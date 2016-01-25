@@ -71,7 +71,7 @@
               </div>
               <div class="row">
                 <div class="col-md-6 col-md-offset-3 text-center">
-                  <a href="#" class="learn-more-btn">新規登録</a>
+                  <a href="./register.php" class="learn-more-btn">新規登録</a>
                   <a href="./login.php" class="learn-more-btn">ログイン</a>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                     <div class="icon">
                       <i class="fa fa-laptop shadow"></i>
                     </div>
-                    <h2><a href="../htdocs/nature.php">自然を楽しむツアー</a></h2>
+                    <h2><a href="../htdocs/nature.php?category_id=1">自然を楽しむツアー</a></h2>
                     <p>Japan is one of the most popular travel destinations in the world. It is a unique blend of traditional and modern, with many temples and buildings from the past co-existing with modern achievements in architecture and technology.
                     primis in faucibus.</p>
                   </div>

@@ -65,26 +65,27 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-8">
+                <form action="./tour_edit.php" method="post">
+                    <h1 class="page-header">
+                        <input type="text" name="title" value="<?php echo $title ?>">
+                        <small>Secondary Text</small>
+                    </h1>
 
-                <h1 class="page-header">
-                    <?php echo $title ?>
-                    <small>Secondary Text</small>
-                </h1>
-
-                <!-- First Blog Post -->
-                <h2>
-                    <a href="#">Blog Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-                <hr>
-                <img class="img-responsive" src="../include/view/img/0<?php echo $id ?>.jpg" alt="">
-                <hr>
-                <p><?php echo $content ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
+                    <!-- First Blog Post -->
+                    <h2>
+                        <a href="#">Blog Post Title</a>
+                    </h2>
+                    <p class="lead">
+                        by <a href="index.php">Start Bootstrap</a>
+                    </p>
+                    <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
+                    <hr>
+                    <img class="img-responsive" src="../include/view/img/0<?php echo $id ?>.jpg" alt="">
+                    <hr>
+                    <p><textarea name="content"><?php echo $content ?></textarea></p>
+                    <input type="hidden" name="article_id" value="<?php echo $id ?>"> 
+                    <input type="submit" value="更新">
+                </form>
                 <hr>
 
                 <!-- Pager -->
@@ -122,10 +123,11 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <ul class="list-unstyled">
-                                <li><a href="#">Category Name</a>
+                                <li><a href="./admin.php">ユーザー管理</a>
                                 </li>
                             </ul>
                         </div>
+
                         <!-- /.col-lg-6 -->
                     </div>
                     <!-- /.row -->
